@@ -1,0 +1,50 @@
+stages:
+  - qtdeps
+  - qtwin64static
+  - qtwin64dynamic
+   
+before_script:
+  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+
+qtdeps:    
+  stage: qtdeps
+  when: manual   
+  image: docker:19
+  services:
+    - docker:19-dind
+  script:
+    
+    - docker build -f Dockerfile -t ${CI_REGISTRY_IMAGE}/${CI_PROJECT_NAME}:$CI_COMMIT_SHORT_SHA .
+    - docker tag ${CI_REGISTRY_IMAGE}/${CI_PROJECT_NAME}:$CI_COMMIT_SHORT_SHA ${CI_REGISTRY_IMAGE}/${CI_PROJECT_NAME}:qtdeps
+    - docker push ${CI_REGISTRY_IMAGE}/${CI_PROJECT_NAME}:qtdeps
+  tags:
+    - shared
+    - docker
+
+win64s:
+  stage: qtwin64static
+  when: manual
+  image: docker:19
+  services:
+    - docker:19-dind
+  script:
+    - docker build -f Dockerfile.win64s -t ${CI_REGISTRY_IMAGE}/${CI_PROJECT_NAME}:$CI_COMMIT_SHORT_SHA --build-arg CI_DEP_IMG=${CI_REGISTRY_IMAGE}/${CI_PROJECT_NAME}:qtdeps .
+    - docker tag ${CI_REGISTRY_IMAGE}/${CI_PROJECT_NAME}:$CI_COMMIT_SHORT_SHA ${CI_REGISTRY_IMAGE}/${CI_PROJECT_NAME}:win64s
+    - docker push ${CI_REGISTRY_IMAGE}/${CI_PROJECT_NAME}:win64s
+  tags:
+    - shared
+    - docker
+
+win64d:
+  stage: qtwin64dynamic
+  when: manual
+  image: docker:19
+  services:
+    - docker:19-dind
+  script:
+    - docker build -f Dockerfile.win64d -t ${CI_REGISTRY_IMAGE}/${CI_PROJECT_NAME}:$CI_COMMIT_SHORT_SHA --build-arg CI_DEP_IMG=${CI_REGISTRY_IMAGE}/${CI_PROJECT_NAME}:qtdeps .
+    - docker tag ${CI_REGISTRY_IMAGE}/${CI_PROJECT_NAME}:$CI_COMMIT_SHORT_SHA ${CI_REGISTRY_IMAGE}/${CI_PROJECT_NAME}:win64d
+    - docker push ${CI_REGISTRY_IMAGE}/${CI_PROJECT_NAME}:win64d
+  tags:
+    - shared
+    - docker
