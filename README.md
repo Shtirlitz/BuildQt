@@ -12,10 +12,10 @@ Based on mxe.cc project.
 
 ## How to use
 Step 0: Create new project `buildqt` in GitLab for Qt container building and place this repository files to it.
-Step 1: Use manual action in `buildqt` pipeline to build `qtdeps` container and be sure that it successfully built and placed into GitLab Container Registry. 
+Step 1: Use manual action in `buildqt` pipeline to build `qtdeps` container and be sure that it successfully built and placed into GitLab Container Registry.
 Step 2: Build based on `qtdeps` next one container (`win64d` or `win64s`) to prepare Qt build environment. Check the GitLab Container Registry and be sure that container successfully placed to it.
 Step 3: Place script `redist_win64d.sh` in the root of your Qt App repository and correct it. The redist shell script place app (EXE) and dependencies (DLLs) from container to project artifacts. 
-Step 4: Use the proper build container (`win64d` or `win64s`) in your Qt App GitLab-repository for building, build results will be placed in pipeline' artifacts archive. 
+Step 4: Use the proper build container (`win64d` or `win64s`) in your Qt App GitLab-repository for building, build results will be placed in pipeline' artifacts archive.
 
 Example of `.gitlab-ci.yml` file of Qt App repository (**Windows 64bit Cross-compiled Dynamically Linked**):
 ```
