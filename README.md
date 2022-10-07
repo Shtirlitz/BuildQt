@@ -1,7 +1,7 @@
 # BuildQt - docker environment to build Qt Apps
 Ready-to-use Qt cross-compile environment in Docker/GitLab-CI
 
-The project can be used as a set of containers for Qt apps building in GitLab environment.
+The project can be used as a set of images for Qt apps building in GitLab environment.
 Based on [mxe.cc](https://mxe.cc/) project.
 
 ## Files
