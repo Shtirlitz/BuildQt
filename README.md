@@ -11,10 +11,10 @@ Based on [mxe.cc](https://mxe.cc/) project.
 * `.gitlab-ci.yml` - YAML-file to define **GitLab-CI** pipelines for images building (all stages by default set to manual because MXE Qt building is time consuming procedure, use it carefully).
 
 ## How to use
-* Step 0: Create new project `buildqt` in GitLab for Qt images building and place this repository files to it.
+* Step 0: Create new project `buildqt` in GitLab for Qt images building and place this project files to it.
 * Step 1: Use manual action in `buildqt` pipeline to build `qtdeps` image and be sure that it successfully built, tagged and placed into GitLab Container Registry.
 * Step 2: Build based on `qtdeps` next one docker image (`win64d` or `win64s`) to prepare Qt build environment. Check the GitLab Container Registry and be sure that image successfully placed to it and tagged.
-* Step 3: If you haven't has qmake/cmake deploy settings inside of your Qt App, place script `redist_win64d.sh` in the root of your Qt App repository and correct it. The redist shell script place app (EXE) and dependencies (DLLs) from container to project artifacts folder `build`. 
+* Step 3: If you haven't has qmake/cmake deploy settings inside of your Qt App, place script `redist_win64d.sh` in the root of your Qt App repository and correct it. The redist shell script place app (EXE) and dependencies (DLLs) from container to project artifacts folder `/build`. 
 * Step 4: Use the proper build image (`win64d` or `win64s`) in your Qt App GitLab-repository for building, results will be placed in pipeline' artifacts archive.
 
 Example of `.gitlab-ci.yml` file of Qt App repository (**Windows 64bit Cross-compiled Dynamically Linked**):
