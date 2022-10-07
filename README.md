@@ -2,7 +2,7 @@
 Ready-to-use Qt cross-compile environment in Docker/GitLab-CI
 
 The project can be used as a set of containers for Qt apps building in GitLab environment.
-Based on mxe.cc project.
+Based on [mxe.cc](https://mxe.cc/) project.
 
 ## Files
 * `Dockerfile` - for building basic image with MXE sources and dependencies (tag: `qtdeps`)
